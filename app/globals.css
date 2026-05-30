@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Palette from Images */
+  --old-copper: #775537;
+  --butter-yellow: #FBE29D;
+  --nebula: #C0DDDA;
+  --seashell: #F1F1F1;
+  --pale-yellow: #FFFAE6;
+  --butter-soft: #FFF1B5;
+  --salty-water: #E8EFFA;
+  --ocean-blue: #013F62;
+  --ocean-light: #024d77;
+  --ocean-dark: #012a42;
+
+  /* Semantic tokens */
+  --color-primary: var(--ocean-blue);
+  --color-primary-light: var(--ocean-light);
+  --color-accent: var(--butter-yellow);
+  --color-accent-soft: var(--pale-yellow);
+  --color-teal: var(--nebula);
+  --color-brown: var(--old-copper);
+  --color-bg: #ffffff;
+  --color-bg-subtle: #fafbfc;
+  --color-text: #0f1923;
+  --color-text-muted: #5a6a78;
+  --color-border: #e5eaf0;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-ocean text-white px-6 py-2.5 rounded-xl font-medium text-sm
+      hover:bg-ocean-light transition-all duration-200 shadow-ocean-sm
+      hover:shadow-ocean-md active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-butter text-copper px-6 py-2.5 rounded-xl font-medium text-sm
+      hover:bg-butter/80 transition-all duration-200 shadow-butter-sm active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border border-ocean/30 text-ocean px-6 py-2.5 rounded-xl font-medium text-sm
+      hover:bg-ocean/5 transition-all duration-200 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply text-ocean/70 px-4 py-2 rounded-lg font-medium text-sm
+      hover:bg-ocean/5 hover:text-ocean transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-gray-100;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  .input {
+    @apply w-full px-4 py-2.5 bg-seashell/60 border border-gray-200 rounded-xl
+      font-body text-sm text-gray-800 placeholder:text-gray-400
+      focus:outline-none focus:ring-2 focus:ring-ocean/20 focus:border-ocean/40
+      transition-all duration-200;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .section-title {
+    @apply font-display text-2xl md:text-3xl font-semibold text-gray-900;
+  }
+
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-ocean to-ocean-light bg-clip-text text-transparent;
+  }
+
+  /* Ticket perforated edge */
+  .ticket-edge {
+    position: relative;
+  }
+  .ticket-edge::before,
+  .ticket-edge::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .ticket-edge::before { left: -10px; }
+  .ticket-edge::after { right: -10px; }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .font-mono { font-family: var(--font-mono); }
+
+  .text-balance { text-wrap: balance; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  .bg-ocean-pattern {
+    background-color: #013F62;
+    background-image:
+      radial-gradient(at 40% 20%, rgba(192,221,218,0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(251,226,157,0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(2,77,119,0.5) 0px, transparent 50%);
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #013F62; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #024d77; }
+
+/* QR Code print styles */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+}
