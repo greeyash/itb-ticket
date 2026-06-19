@@ -5,7 +5,7 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { Edit, Users, QrCode, Award, Eye, ToggleRight, BarChart2 } from "lucide-react";
 import { formatDate, formatCurrency, getEventStatusColor } from "@/lib/utils";
-import { PublishToggle } from "@/components/dashboard/PublishToggle";
+import { PublishToggle } from "@/components/dashboard/publishtoggle";
 
 export default async function OrganizerEventDetailPage({ params }: { params: { id: string } }) {
   const supabase = await createClient();
