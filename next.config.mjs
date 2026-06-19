@@ -16,6 +16,8 @@ const nextConfig = {
       },
     ],
   },
+  // Tambahkan baris ini di bawah images
+  allowedDevOrigins: ['itbtickets.stei.my.id'],
 };
 
 export default nextConfig;
