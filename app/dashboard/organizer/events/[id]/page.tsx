@@ -16,26 +16,26 @@ export default async function OrganizerEventDetailPage({ params }: { params: { i
     .from("events")
     .select("*")
     .eq("id", params.id)
-    .single();
+    .single() as any;
 
   if (!event) notFound();
 
   // Verify ownership
-  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single() as any;
   if (event.organizer_id !== user.id && profile?.role !== "admin") redirect("/dashboard/organizer/events");
 
   // Registrations summary
   const { data: regs } = await supabase
     .from("registrations")
     .select("status, payment_status, created_at")
-    .eq("event_id", event.id);
+    .eq("event_id", event.id) as any;
 
   const regStats = {
     total: regs?.length || 0,
-    confirmed: regs?.filter((r) => ["confirmed","attended"].includes(r.status)).length || 0,
-    pending: regs?.filter((r) => r.status === "pending").length || 0,
-    attended: regs?.filter((r) => r.status === "attended").length || 0,
-    pendingPayment: regs?.filter((r) => r.payment_status === "pending").length || 0,
+    confirmed: regs?.filter((r?: any) => ["confirmed","attended"].includes(r.status)).length || 0,
+    pending: regs?.filter((r?: any) => r.status === "pending").length || 0,
+    attended: regs?.filter((r?: any) => r.status === "attended").length || 0,
+    pendingPayment: regs?.filter((r?: any) => r.payment_status === "pending").length || 0,
   };
 
   return (
@@ -165,9 +165,9 @@ export default async function OrganizerEventDetailPage({ params }: { params: { i
             <div className="bg-saltywater/30 rounded-xl p-4 space-y-2">
               <p className="text-xs font-semibold text-gray-700 mb-3">Status Pembayaran</p>
               {[
-                { label: "Sudah Bayar", value: regs?.filter((r) => r.payment_status === "paid").length || 0, color: "text-green-600" },
+                { label: "Sudah Bayar", value: regs?.filter((r?: any) => r.payment_status === "paid").length || 0, color: "text-green-600" },
                 { label: "Pending", value: regStats.pendingPayment, color: "text-amber-600" },
-                { label: "Gagal/Refund", value: regs?.filter((r) => ["failed","refunded"].includes(r.payment_status)).length || 0, color: "text-red-600" },
+                { label: "Gagal/Refund", value: regs?.filter((r?: any) => ["failed","refunded"].includes(r.payment_status)).length || 0, color: "text-red-600" },
               ].map((item) => (
                 <div key={item.label} className="flex justify-between text-sm">
                   <span className="text-gray-500">{item.label}</span>
